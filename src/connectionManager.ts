@@ -2,6 +2,7 @@ import knex from 'knex';
 import { getNamespace } from 'continuation-local-storage';
 
 import knexConfig from './config/knex.config';
+import { Tenants } from './domains/tenants';
 
 let connectionMap: any;
 
@@ -23,15 +24,15 @@ export async function connectAllDB() {
     }, {});
 }
 
-function createConnectionConfig(tenant: any) {
+function createConnectionConfig(tenant: Tenants) {
   return {
     client: 'pg',
     connection: {
-      host: tenant.db_host,
-      port: tenant.db_port,
-      user: tenant.db_username,
-      database: tenant.db_name,
-      password: tenant.db_password
+      host: tenant.dbHost,
+      port: tenant.dbPort,
+      user: tenant.dbUsername,
+      database: tenant.dbName,
+      password: tenant.dbPassword
     }
   };
 }
